@@ -1,6 +1,6 @@
 # 🎬 Conversor 3D - Spatial Video para SBS
 
-Script em Shell para macOS que converte vídeos espaciais (Spatial Video) gravados no iPhone 15 Pro Max para o formato 3D Side-by-Side (SBS), compatível com headsets de VR como Meta Quest, Google Cardboard e outros visualizadores 3D.
+Script em Shell para macOS que converte vídeos espaciais (Spatial Video) gravados em iPhone 15 Pro/Pro Max ou superiores para o formato 3D Side-by-Side (SBS), compatível com TV 3D, headsets de VR como Meta Quest, Google Cardboard e outros visualizadores 3D.
 
 ## 📋 Requisitos
 
@@ -99,15 +99,16 @@ Arraste o arquivo de vídeo espacial para esta janela e pressione ENTER:
 ## 🎥 Como gravar vídeos espaciais no iPhone
 
 1. Abra o app **Câmera** no seu iPhone 15 Pro/Pro Max
-2. Deslize para o modo **Vídeo**
+2. Deslize para o modo **Espacial**
 3. Segure o iPhone na **horizontal**
-4. Toque no ícone de **óculos 3D** (Spatial Video)
+4. Toque no ícone de **Spatial Video** (No canto superior direito)
 5. Pressione o botão de gravação
 
 ## 👓 Como assistir os vídeos convertidos
 
 Após a conversão, você pode assistir seus vídeos 3D SBS em:
 
+- **Projetor**: Usando projetores (datashow) com suporte a 3D SBS.
 - **Meta Quest / Quest 2 / Quest 3**: Usando apps como Bigscreen, DeoVR ou Oculus TV
 - **Google Cardboard / Visualizadores VR para smartphone**: Usando apps como VR Player ou Cardboard
 - **Computador**: Usando players com suporte a 3D SBS como VLC ou PotPlayer
