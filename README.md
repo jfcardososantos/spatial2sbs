@@ -1,5 +1,3 @@
-
-```markdown
 # 🎬 Conversor 3D - Spatial Video para SBS
 
 Script em Shell para macOS que converte vídeos espaciais (Spatial Video) gravados no iPhone 15 Pro Max para o formato 3D Side-by-Side (SBS), compatível com headsets de VR como Meta Quest, Google Cardboard e outros visualizadores 3D.
@@ -40,7 +38,7 @@ ffmpeg -version
 #### Opção A: Download direto
 
 ```
-curl -o ~/conversor3d https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPOSITORIO/main/conversor3d
+curl -o ~/conversor3d https://raw.githubusercontent.com/jfcardososantos/spatial2sbs/main/conversor3d
 chmod +x ~/conversor3d
 sudo mv ~/conversor3d /usr/local/bin/
 ```
@@ -48,8 +46,8 @@ sudo mv ~/conversor3d /usr/local/bin/
 #### Opção B: Clonar o repositório
 
 ```
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-cd SEU_REPOSITORIO
+git clone https://github.com/jfcardososantos/spatial2sbs.git
+cd spatial2sbs
 chmod +x conversor3d
 sudo mv conversor3d /usr/local/bin/
 ```
@@ -186,9 +184,8 @@ Se este script foi útil para você, considere dar uma ⭐ no repositório!
 
 ## 📧 Contato
 
-Para dúvidas, sugestões ou reportar bugs, abra uma [issue](https://github.com/SEU_USUARIO/SEU_REPOSITORIO/issues).
+Para dúvidas, sugestões ou reportar bugs, abra uma [issue](https://github.com/jfcardososantos/spatial2sbs/issues).
 
 ---
 
 **Feito com ❤️ em Bom Jesus da Lapa, BA, Brasil**
-```
