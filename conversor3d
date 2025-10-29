@@ -1,0 +1,94 @@
+#!/bin/zsh
+
+# Script Conversor de Vídeo Espacial para SBS
+# Autor: ALF Studio Tech
+# Data: 29/10/2025
+
+clear
+echo "======================================"
+echo "   CONVERSOR 3D - SPATIAL VIDEO → SBS"
+echo "======================================"
+echo ""
+
+# Solicita o caminho do arquivo
+echo "Arraste o arquivo de vídeo espacial para esta janela e pressione ENTER:"
+read -r input_file
+
+# Remove aspas e espaços extras do caminho
+input_file=$(echo "$input_file" | sed "s/^['\"]//;s/['\"]$//")
+
+# Verifica se o arquivo existe
+if [ ! -f "$input_file" ]; then
+    echo "❌ Erro: Arquivo não encontrado!"
+    exit 1
+fi
+
+# Obtém o diretório e nome do arquivo sem extensão
+dir=$(dirname "$input_file")
+filename=$(basename "$input_file")
+name="${filename%.*}"
+
+echo ""
+echo "📁 Arquivo de entrada: $filename"
+echo "📂 Pasta de saída: $dir"
+echo ""
+echo "⏳ Iniciando conversão..."
+echo ""
+
+# Cria pasta temporária para arquivos intermediários
+temp_dir="$dir/temp_conversion_$$"
+mkdir -p "$temp_dir"
+
+# Passo 1: Extrair view esquerda (olho esquerdo)
+echo "🎬 [1/3] Extraindo view esquerda..."
+ffmpeg -i "$input_file" -an -map 0:v:view:0 -c:v libx264 "$temp_dir/view0.mp4" -y 2>&1 | grep -E "frame=|time=|size=" || true
+
+# Passo 2: Extrair view direita (olho direito)
+echo ""
+echo "🎬 [2/3] Extraindo view direita..."
+ffmpeg -i "$input_file" -an -map 0:v:view:1 -c:v libx264 "$temp_dir/view1.mp4" -y 2>&1 | grep -E "frame=|time=|size=" || true
+
+# Passo 3: Combinar em SBS e adicionar áudio
+echo ""
+echo "🎬 [3/3] Combinando em formato SBS e adicionando áudio..."
+output_file="$dir/${name}_SBS.mp4"
+ffmpeg -i "$temp_dir/view0.mp4" -i "$temp_dir/view1.mp4" -i "$input_file" \
+    -filter_complex "[0:v][1:v]hstack=inputs=2[v]" \
+    -map "[v]" -map 2:a \
+    -c:v libx264 -preset medium -crf 18 \
+    -c:a aac -b:a 192k \
+    "$output_file" -y 2>&1 | grep -E "frame=|time=|size=" || true
+
+# Limpa arquivos temporários
+echo ""
+echo "🧹 Limpando arquivos temporários..."
+rm -rf "$temp_dir"
+
+# Verifica se a conversão foi bem-sucedida
+if [ -f "$output_file" ]; then
+    echo ""
+    echo "======================================"
+    echo "✅ CONVERSÃO CONCLUÍDA COM SUCESSO!"
+    echo "======================================"
+    echo ""
+    echo "📹 Arquivo de saída: ${name}_SBS.mp4"
+    echo "📂 Local: $dir"
+    echo ""
+    
+    # Pergunta se deseja abrir a pasta
+    echo "Deseja abrir a pasta do arquivo? (s/n)"
+    read -r open_folder
+    if [[ "$open_folder" =~ ^[Ss]$ ]]; then
+        open "$dir"
+    fi
+else
+    echo ""
+    echo "❌ Erro durante a conversão!"
+    echo "Verifique se o FFmpeg está instalado corretamente."
+    exit 1
+fi
+
+echo ""
+echo "Pressione ENTER para sair..."
+read
+
